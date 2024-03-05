@@ -1,33 +1,90 @@
-const cantidadFamiliares = prompt("Ingrese cantidad de integrantes en su familia");
-const nodoForm = document.createElement("form");
-document.querySelector("body").appendChild(nodoForm);
+const $botonCantidadIntegrantes = document.querySelector("#boton-cantidad-integrantes")
 
-for (let i = 0; i < cantidadFamiliares; i++) {
-    let nodoLabel = document.createElement("label");
-    let textoLabel = document.createTextNode(`Ingrese la edad del integrante familiar numero ${i+1}`);
-    nodoLabel.appendChild(textoLabel);
-    nodoForm.appendChild(nodoLabel);
+$botonCantidadIntegrantes.onclick = function(event) {
+    const cantidadIntegrantes = Number(document.querySelector("#cantidad-integrantes").value);
 
-    let nodoInput = document.createElement("input");
-    nodoInput.type = "number";
-    nodoForm.appendChild(nodoInput);
-    nodoForm.appendChild(document.createElement("br"));
+    borrarIntegrantesAnteriores();
+    crearIntegrantesNuevos(cantidadIntegrantes);
+    ocultarOMostrarElementos(cantidadIntegrantes);
+
+    event.preventDefault();
 }
 
-let nodoBoton = document.createElement("button");
-    nodoBoton.type = "button";
-    nodoBoton.innerText = "Calcular";
-nodoForm.appendChild(nodoBoton);
 
-const $botonCalcularFamilia = document.querySelector("button");
+const $botonCalcularDatosFamilia = document.querySelector("#calcular-datos-familia");
 
-$botonCalcularFamilia.onclick = function() {
-    const edadFamiliares = document.querySelectorAll("input");
-    let mayorEdad = Number(edadFamiliares[0].value);
-    let menorEdad = 0;
+$botonCalcularDatosFamilia.onclick = function(event) {
+    const $edadFamiliares = document.querySelectorAll(".integrantes");
+    let mayorEdad = 0;
+    let menorEdad = Number($edadFamiliares[0].value);
     let sumaDeEdades = 0;
+    let promedioEdades;
 
-    for (let j = 0; j < cantidadFamiliares; j++) {
-        if ()
+    for (let i = 0; i < $edadFamiliares.length; i++) {
+        let edad = Number($edadFamiliares[i].value);
+        sumaDeEdades += edad;
+
+        if (edad < menorEdad) {
+            menorEdad = edad;
+        }
+        if (edad > mayorEdad) {
+            mayorEdad = edad;
+        }
+    }
+
+    promedioEdades = sumaDeEdades / $edadFamiliares.length;
+    document.querySelector("#resultado-edad-familia").textContent = `La mayor edad es de ${mayorEdad}, la menor edad es de ${menorEdad} y el promedio entre edades es de ${promedioEdades}`;
+
+    event.preventDefault();
+}
+
+
+const $botonResetear = document.querySelector("#resetear-datos-familia");
+
+$botonResetear.onclick = function(event) {
+    borrarIntegrantesAnteriores()
+    ocultarOMostrarElementos(0);
+
+    event.preventDefault();
+}
+
+
+function borrarIntegrantesAnteriores() {
+    const $inputIntegrantes = document.querySelectorAll(".integrantes");
+    const $labelIntegrantes = document.querySelectorAll(".label-integrantes")
+
+    for (let i = 0; i < $inputIntegrantes.length; i++) {
+        $inputIntegrantes[i].remove();
+        $labelIntegrantes[i].remove();
+    }  
+}
+
+function crearIntegrantesNuevos(cantidadIntegrantes) {
+    const $divIntegrantes = document.querySelector("#div-integrantes");
+
+    for (let i = 0; i < cantidadIntegrantes; i++) {
+        let nodoLabel = document.createElement("label");
+        nodoLabel.className = "label-integrantes";
+        let textoLabel = document.createTextNode(`Ingrese la edad del integrante familiar numero ${i+1}`);
+        nodoLabel.appendChild(textoLabel);
+        $divIntegrantes.appendChild(nodoLabel);
+
+        let nodoInput = document.createElement("input");
+        nodoInput.type = "number";
+        nodoInput.className = "integrantes";
+        $divIntegrantes.appendChild(nodoInput);
+    }
+}
+
+function ocultarOMostrarElementos(cantidadIntegrantes) {
+    if (cantidadIntegrantes > 0) {
+        document.querySelector("#calcular-datos-familia").className = "";
+        document.querySelector("#resetear-datos-familia").className = "";
+        document.querySelector("#resultado-edad-familia").className = "";
+    } else {
+        document.querySelector("#calcular-datos-familia").className = "oculto";
+        document.querySelector("#resetear-datos-familia").className = "oculto";
+        document.querySelector("#resultado-edad-familia").className = "oculto";
+        document.querySelector("#resultado-edad-familia").textContent = " ";
     }
 }
