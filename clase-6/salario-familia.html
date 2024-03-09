@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="salario-familia.css">
 </head>
 <body>
-    <form>
+    <form name="form">
         <button type="submit" id="boton-agregar">Agregar integrante</button>
         <button type="submit" id="boton-quitar">Quitar integrante</button>
 
         <div id="integrantes"></div>
-        <button type="submit" id="calcular-resultados" class="oculto">Calcular</button>
+        <button type="submit" id="calcular-resultados" class="oculto" name="resultados">Calcular</button>
 
         <div id="resultados"></div>
     </form>
 
+
+    <script src="calculos-salario-familia.js"></script>
     <script src="salario-familia.js"></script>
 </body>
 </html>

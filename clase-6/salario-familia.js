@@ -15,6 +15,7 @@ $botonQuitarIntegrante.onclick = function(event) {
     quitarIntegrante();
     contador--;
     mostrarUOcultarBoton();
+    quitarTextoResultados();
 
     event.preventDefault();
 }
@@ -23,28 +24,12 @@ const $botonCalcularDatosFamilia = document.querySelector("#calcular-resultados"
 
 $botonCalcularDatosFamilia.onclick = function(event) {
     const $salarioAnualIntegrante = document.querySelectorAll(".input-integrantes");
-    let mayorSalario = 0;
-    let menorSalario = Number($salarioAnualIntegrante[0].value);
-    let sumaSalarios = 0;
-    let promedioSalarios;
-
-    for (let i = 0; i < $salarioAnualIntegrante.length; i++) {
-        let salario = Number($salarioAnualIntegrante[i].value);
-        sumaSalarios += salario;
-
-        if (salario < menorSalario) {
-            menorSalario = edad;
-        }
-        if (salario > mayorSalario) {
-            mayorSalario = edad;
-        }
-    }
-
-    promedioSalarios = sumaSalarios / $salarioAnualIntegrante.length;
-    document.querySelector("#resultados").textContent = `El mayor salario es $${mayorSalario}, el menor salario es $${menorSalario} y el promedio entre salarios es de ${promedioSalarios}`;
+    calcularSalariosAnuales($salarioAnualIntegrante);
 
     event.preventDefault();
 }
+
+
 
 function agregarIntegrante() {
     const $divIntegrantes = document.querySelector("#integrantes");
@@ -77,4 +62,8 @@ function mostrarUOcultarBoton() {
     } else {
         $botonCalcularDatosFamilia.className = "oculto";
     }
+}
+
+function quitarTextoResultados() {
+    return document.querySelector("#resultados").textContent = "";
 }
