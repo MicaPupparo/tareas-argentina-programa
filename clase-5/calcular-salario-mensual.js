@@ -1,11 +1,11 @@
 const $botonCalcularSalarioMensual = document.querySelector("#calcular-salario-mensual");
 
-$botonCalcularSalarioMensual.onclick = function(){
+$botonCalcularSalarioMensual.onclick = function(event){
     const salarioAnualUsuario = Number(document.querySelector("#salario-anual").value);
     let salarioMensual = calcularSalarioMensual(salarioAnualUsuario);
 
     document.querySelector("#salario-mensual").value = salarioMensual;
-    return false;
+    event.preventDefault();
 }
 
 function calcularSalarioMensual(salarioAnual){

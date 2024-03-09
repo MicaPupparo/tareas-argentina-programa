@@ -4,7 +4,7 @@ let segundosTotales = 0;
 
 const $botonEnviarDatosTiempo = document.querySelector("#enviar-tiempo");
 
-$botonEnviarDatosTiempo.onclick = function() {
+$botonEnviarDatosTiempo.onclick = function(event) {
     const horasEnElVideo = Number(document.querySelector("#horas-video").value);
     const minutosEnElVideo = Number(document.querySelector("#minutos-video").value);
     const segundosEnElVideo = Number(document.querySelector("#segundos-video").value);
@@ -24,5 +24,6 @@ $botonEnviarDatosTiempo.onclick = function() {
     }
 
     document.querySelector("#tiempo-total").innerText = `El tiempo total es de ${horasTotales} horas, ${minutosTotales} minutos y ${segundosTotales} segundos.`;
-    return false;
+
+    event.preventDefault();
 }
